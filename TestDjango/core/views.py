@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
+from .models import Vehiculo
 
 # Create your views here.
 
 def home(request):
-    contexto = {"nombre":"Claudia Andrea"}
-    return render(request, 'core/home.html', contexto)
+    vehiculos = Vehiculo.objects.all()
+    datos = {
+        'vehiculos': vehiculos
+    }
+    return render(request, 'core/home.html', datos)
