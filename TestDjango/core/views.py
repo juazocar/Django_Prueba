@@ -25,3 +25,18 @@ def form_vehiculo(request):
 
             datos['mensaje'] = "Datos guardados correctamente."
     return render(request, 'core/form_vehiculo.html', datos)    
+
+def form_mod_vehiculo(request, id):
+
+    vehiculo = Vehiculo.objects.get(patente=id)
+
+    datos = {
+        'form': VehiculoForm(instance= vehiculo)
+    }
+
+    if request.method == 'POST':
+        formulario = VehiculoForm(data= request.POST, instance=vehiculo)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje'] = "Modificado correctamente"
+    return render(request, 'core/form_mod_vehiculo.html', datos)    
